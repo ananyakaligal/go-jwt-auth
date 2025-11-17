@@ -1,7 +1,25 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"go-jwt-auth/initializers"
+
+	"github.com/gin-gonic/gin"
+)
+
+func init() {
+	initializers.LoadEnvVariables()
+	fmt.Println("Env variables loaded")
+}
 
 func main() {
-	fmt.Println("Hello, World!")
+	r := gin.Default()
+
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "Hello, World!",
+		})
+	})
+
+	r.Run()
 }
